@@ -1,7 +1,29 @@
+# Entorno virtual
 .venv/
+env/
 __pycache__/
 *.pyc
-chroma/
+
+# Archivos temporales
 *.log
-*.pdf
+*.bak
+*.tmp
+.DS_Store
+
+# Archivos de configuración del sistema
+.idea/
+.vscode/
+
+# Base de datos vectorial
+chroma/
+
+# Datos y documentos
 data/*
+
+# Archivos generados
+*.pdf
+*.zip
+
+# Token de autenticación
+*.env
+.env
