@@ -42,8 +42,7 @@ generator = pipeline(
     "text2text-generation",
     model=model,
     tokenizer=tokenizer,
-    max_new_tokens=128,
-    temperature=0.0
+    max_new_tokens=128
 )
 llm = HuggingFacePipeline(pipeline=generator)
 
