@@ -12,7 +12,7 @@ Este proyecto es un asistente conversacional inteligente diseñado para estudian
 - Hugging Face Embeddings (`intfloat/multilingual-e5-base`)
 
 ## 📂 Estructura
-
+```plaintext
 .
 ├── build_index.py
 ├── data/
@@ -34,6 +34,7 @@ Este proyecto es un asistente conversacional inteligente diseñado para estudian
 │ ├── indexer.py
 │ └── cleaner.py
 └── requirements.txt
+```
 
 
 ## 🚀 Cómo usar
