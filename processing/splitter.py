@@ -3,21 +3,11 @@
 from langchain.schema import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def split_documents(documents: list[Document]) -> list[Document]:
-    chunks = []
 
+def split_documents(documents: list[Document]) -> list[Document]:
+    """Separa los documentos en chunks de tamaño fijo"""
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=450,
-        chunk_overlap=40,
-        separators=["\n\n", "\n", ".", " "],
-        length_function=len
+        chunk_size=800, chunk_overlap=80, is_separator_regex=False, length_function=len
     )
 
-    for doc in documents:
-        if doc.metadata.get("type") == "qa_pair":
-            chunks.append(doc)
-        else:
-            split_parts = splitter.split_documents([doc])
-            chunks.extend(split_parts)
-
-    return chunks
+    return splitter.split_documents(documents)

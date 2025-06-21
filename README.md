@@ -21,7 +21,6 @@ Este proyecto es un asistente conversacional inteligente diseñado para estudian
 ├── loaders/
 │ ├── init.py
 │ ├── pdf_loader.py
-│ └── qa_loader.py
 ├── processing/
 │ ├── init.py
 │ ├── splitter.py
@@ -49,4 +48,4 @@ Este proyecto es un asistente conversacional inteligente diseñado para estudian
 
 3. Lanza el webhook para Dialogflow:
     ```bash
-    uvicorn dialogflow_webhook:app --port 8080
+    uvicorn dialogflow_webhook:app --reload --port 8080

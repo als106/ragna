@@ -1,5 +1,5 @@
 # build_index.py
-from loaders import load_documents, load_all_csv_documents
+from loaders import load_documents
 from processing import split_documents, calculate_chunk_ids
 from embeddings import get_embedding_function
 from vectorstore import add_to_chroma, clear_database
@@ -21,8 +21,6 @@ def main():
         clear_database()
 
     documents = load_documents()
-    csv_documents = load_all_csv_documents("data")
-    documents.extend(csv_documents)
     
     if not documents:
         return

@@ -7,7 +7,6 @@ import os
 
 DATA_PATH = "data"
 
-
 def load_documents() -> List[Document]:
     """Carga documentos PDF desde el directorio especificado."""
     try:

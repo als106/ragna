@@ -1,9 +1,7 @@
 # processing/metadata.py
-from langchain.schema.document import Document
-from typing import List
 
 
-def calculate_chunk_ids(chunks: List[Document]) -> List[Document]:
+def calculate_chunk_ids(chunks):
     """Asigna un ID único a cada chunk basado en su fuente, página y posición."""
     last_page_id = None
     current_chunk_index = 0
@@ -13,12 +11,17 @@ def calculate_chunk_ids(chunks: List[Document]) -> List[Document]:
         page = chunk.metadata.get("page")
         current_page_id = f"{source}:{page}"
 
+        # If the page ID is the same as the last one, increment the index.
         if current_page_id == last_page_id:
             current_chunk_index += 1
         else:
             current_chunk_index = 0
 
-        chunk.metadata["id"] = f"{current_page_id}:{current_chunk_index}"
+        # Calculate the chunk ID.
+        chunk_id = f"{current_page_id}:{current_chunk_index}"
         last_page_id = current_page_id
+
+        # Add it to the page meta-data.
+        chunk.metadata["id"] = chunk_id
 
     return chunks
