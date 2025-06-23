@@ -9,16 +9,18 @@ __pycache__/
 *.bak
 *.tmp
 .DS_Store
+.gradio/
 
 # Archivos de configuración del sistema
 .idea/
 .vscode/
 
 # Base de datos vectorial
-chroma/
+chrome_langchain_db/
 
 # Datos y documentos
 data/*
+processed_docs.json
 
 # Archivos generados
 *.pdf
