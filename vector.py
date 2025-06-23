@@ -1,9 +1,9 @@
-# vector.py (modificado)
-from langchain_ollama import OllamaEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.vectorstores import VectorStoreRetriever
 import os
 import pandas as pd
 import json
@@ -11,21 +11,26 @@ import json
 # === CONFIGURACIÓN ===
 data_dir = "data"
 db_location = "./chrome_langchain_db"
-embedding_model = "mxbai-embed-large"
+embedding_model = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 # === EMBEDDINGS Y BASE VECTORIAL ===
-embeddings = OllamaEmbeddings(model=embedding_model)
+embeddings = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
 vector_store = Chroma(
     collection_name="ragna",
     persist_directory=db_location,
     embedding_function=embeddings
 )
 
-retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+retriever = VectorStoreRetriever(
+    vectorstore=vector_store,
+    search_type="mmr",  # o "similarity_score_threshold"
+    search_kwargs={"k": 20}
+)
+
 
 def update_vector_store():
     all_documents = []
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=100)
 
     processed_log = "processed_docs.json"
     if os.path.exists(processed_log):
@@ -46,7 +51,7 @@ def update_vector_store():
                 df = pd.read_csv(path)
                 for i, row in df.iterrows():
                     doc = Document(
-                        page_content=row["Pregunta"] + " " + row["Respuesta"],
+                        page_content = f"Pregunta: {row['Pregunta']}\nRespuesta: {row['Respuesta']}",
                         metadata={"source": file, "tema": tema}
                     )
                     all_documents.append(doc)

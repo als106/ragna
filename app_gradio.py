@@ -5,11 +5,13 @@ import shutil
 import logging
 import atexit
 import subprocess
-from main import chat_with_history, retriever, SESSION_ID
+from main import chat_with_history, reranked_retriever, retriever, SESSION_ID
 from vector import update_vector_store
 
 CHROMA_PATH = "./chrome_langchain_db"
 PROCESSED_LOG = "processed_docs.json"
+PY_CACHE_PATH = "./__pycache__"
+
 
 def clear_database():
     if os.path.exists(CHROMA_PATH):
@@ -18,12 +20,23 @@ def clear_database():
     if os.path.exists(PROCESSED_LOG):
         os.remove(PROCESSED_LOG)
         logging.info("✅ Registro eliminado.")
+    if os.path.exists(PY_CACHE_PATH):
+        shutil.rmtree(PY_CACHE_PATH)
+        logging.info("✅ Cache eliminada.")
+
 
 def chat_rag(message, history):
     question = message["content"] if isinstance(message, dict) else message
-    context = retriever.invoke(question)
+    
+    # 🔍 Reranked context
+    context_docs = reranked_retriever.invoke(question)
+
+    # Generar el contexto concatenado
+    context_text = "\n\n".join([doc.page_content for doc in context_docs])
+
+    # Invocar al modelo
     response = chat_with_history.invoke(
-        {"context": context, "question": question},
+        {"context": context_text, "question": question},
         config={"configurable": {"session_id": SESSION_ID}},
     )
     return {"role": "assistant", "content": response}
@@ -32,10 +45,19 @@ def chat_rag(message, history):
 def stop_model():
     subprocess.run(["ollama", "stop", "llama3.2:1b"])
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Interfaz Gradio para RAG")
-    parser.add_argument("--reset", action="store_true", help="Elimina la base vectorial y el log de procesados.")
-    parser.add_argument("--update", action="store_true", help="Procesa nuevos documentos del directorio data/")
+    parser.add_argument(
+        "--reset",
+        action="store_true",
+        help="Elimina la base vectorial y el log de procesados.",
+    )
+    parser.add_argument(
+        "--update",
+        action="store_true",
+        help="Procesa nuevos documentos del directorio data/",
+    )
     args = parser.parse_args()
 
     if args.reset:
@@ -52,7 +74,7 @@ if __name__ == "__main__":
         description="Asistente conversacional UA.",
         chatbot=gr.Chatbot(height=600, show_copy_button=True, type="messages"),
         theme=gr.themes.Soft(),
-        type="messages"
-    ).launch(share=True)
-    
+        type="messages",
+    ).launch(share=False)
+
     atexit.register(stop_model)

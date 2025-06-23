@@ -1,0 +1,124 @@
+* Running on local URL:  http://127.0.0.1:7860
+* To create a public link, set `share=True` in `launch()`.
+
+--- Contexto después del re-ranker ---
+[0] SERVEI DE GESTIÓ ACADÈMICA
+SERVICIO DE GESTIÓN ACADÉMICA
+MATRÍCULA ONLINE
+Mail de admisión
+Te asignará:
+• usuario (correo@alu.ua.es)
+• plazo de matrícula
+Acceso a UACloud
+Genera tu contraseña de acceso 
+a UACloud
+Matricúlate en el plazo asignado o 
+perderás la plaza 
+Entrega de documentación
+La docu...
+
+[1] Guía de matriculación para el alumnado de la Universidad de Alicante.  
+Servicio de Gestión Académica. Universidad de Alicante 
+ 
+Página 10 de 14 
+descuento en tu recibo. Para poder seleccionar estos tipos de matrícula tienes que haber presentado 
+previamente la documentación acreditativa en tu secr...
+
+[2] SERVEI DE GESTIÓ ACADÈMICA
+SERVICIO DE GESTIÓN ACADÉMICA
+MATRÍCULA ONLINE
+Pago de la matrícula
+Podrás consultar el detalle de todos tus recibos en UACloud, en la 
+tarjeta (app) Pago de recibos.
+Los recibos domiciliados se descontarán de tu cuenta en la fecha de 
+vencimiento, siempre que hayas aporta...
+
+[3] pràctiques per temps igual o inferior a tres mesos. En el cas d’estades 
+per temps superior a tres mesos, el pagament final d’aquesta ajuda es 
+farà a meitat de l’estada, una vegada remès l’informe intermedi, que 
+prèviament serà requerit per la Unitat de Pràctiques.
+En el cas de persones beneficiàr...
+
+[4] asignatura, que tiene que coincidir con el año en que ha sido superada por el estudiante, 
+sellado por la universidad de origen. Si no consta el año o consta otro diferente, el 
+departamento o centro correspondiente tendrá que hacer una diligencia en la cual se 
+exponga que los contenidos son los mi...
+
+[5] asignatura, que tiene que coincidir con el año en que ha sido superada por el estudiante, 
+sellado por la universidad de origen. Si no consta el año o consta otro diferente, el 
+departamento o centro correspondiente tendrá que hacer una diligencia en la cual se 
+exponga que los contenidos son los mi...
+
+[6] Servei  de  Relacions  Internacionals  de  la  Universitat  d'Alacant
+comprovarà  d'ofici  el  compte  justificatiu  del  compliment  de  les
+obligacions, que contindrà la següent informació:
+Las personas beneficiarias deberán justificar su llegada y matriculación
+hasta el 30 de septiembre de 2025. ...
+
+[7] Deporte durante el curso 2020-21 o con una discapacidad en grado igual o superior al 33 por cien. 
+• 
+La UA complementa la ayuda Erasmus durante esos 3 meses hasta llegar a los 650 euros mes.  
+• 
+Durante la convocatoria se establecerá la opción de becar 1 mes más a cargo de la UA, pero solo si hay ...
+
+[8] Universidad de Alicante 
+Unidad de Prácticas 
+Pabellón de Alumnado 
+Apdo. 99 - 03080 Alicante (España) 
+Tel.+34 965 90 34 00 ext. 7285 -   e-mail: practicaserasmus@ua.es 
+ 
+ 
+ 
+ 
+Los/las becarios/as, una vez aceptada la beca y firmados el contrato de subvención y el acuerdo de formación, se 
+comprom...
+
+[9] SERVEI DE GESTIÓ ACADÈMICA
+SERVICIO DE GESTIÓN ACADÉMICA
+MATRÍCULA ONLINE
+Formas y plazos de pagoo
+Selecciona los plazos en que vas a 
+pagar tu matrícula (8, 2 o 1 único plazo)
+No podrás fraccionar el pago:
+•
+Si solicitas realizar las pruebas 
+extraordinarias de finalización de 
+estudios (C1) para t...
+
+[10] GUÍA PARA LA GESTIÓN ACADÉMICA Y ECONÓMICA DE CURSOS DE FORMACIÓN CONTINUA 
+Para tener un control del alumnado matriculado en un curso debemos entrar en la app “Generador 
+de informes” de UACloud 
+Y ejecutar la siguiente consulta:
+Para llevar el control del pago de matrículas de un curso debemos acc...
+
+[11] Guía de matriculación para el alumnado de la Universidad de Alicante.  
+Servicio de Gestión Académica. Universidad de Alicante 
+ 
+Página 8 de 14 
+En nuestro ejemplo hemos realizado una búsqueda de la asignatura 8130 y el resultado obtenido es el mostrado en la 
+imagen siguiente. Como podemos observa...
+
+[12] da se distribuirá en pagos mensuales, con independencia de la duración 
+del periodo de prácticas, porque en cumplimiento de lo dispuesto en la 
+disposición adicional 52ª del texto refundido de la Ley general de la 
+seguridad social sobre inclusión en el sistema de Seguridad Social de 
+alumnos que re...
+
+[13] Guía de matriculación para el alumnado de la Universidad de Alicante.  
+Servicio de Gestión Académica. Universidad de Alicante 
+ 
+Página 11 de 14 
+Si la cuenta en la que vas a domiciliar tus recibos es la misma en todos los plazos de tu matrícula puedes copiar los 
+datos pinchando en  
+ 
+Si tienes q...
+
+[14] SERVEI DE GESTIÓ ACADÈMICA
+SERVICIO DE GESTIÓN ACADÉMICA
+MATRÍCULA ONLINE
+SERVEI DE GESTIÓ ACADÈMICA
+SERVICIO DE GESTIÓN ACADÉMICA
+En la siguiente pestaña podrás elegir los plazos para realizar el pago. Es importante tener en cuenta que no todos los 
+estudios permiten el pago en varios plazos y, est...
+
+Keyboard interruption in main thread... closing server.
