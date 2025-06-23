@@ -1,17 +1,14 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 from vector import retriever
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain_cohere import CohereRerank
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnableSequence
 
 # -------- CONFIGURACIÓN --------
-SESSION_ID = "default"
 MODEL_NAME = "llama3.2:1b"
 app = FastAPI()
 
@@ -22,31 +19,24 @@ class Query(BaseModel):
 model = OllamaLLM(model="llama3.2:1b")
 
 prompt = ChatPromptTemplate.from_template("""
-Eres un asistente académico de la Universidad de Alicante.
+Eres un asistente académico especializado en la Universidad de Alicante. Tu tarea es responder con precisión y claridad a preguntas (Pregunta) sobre titulaciones, asignaturas, normativa, servicios universitarios, calendarios académicos, prácticas externas, movilidad, acceso y matrícula, entre otros temas relevantes de la UA.
 
-Usa SOLO el contexto para responder.  
-No inventes. Si no tienes suficiente información, responde: "No lo sé con certeza".
+Antes de generar la respuesta, consulta los documentos proporcionados (Contexto) y extrae solo la información más relevante y actual. Si no encuentras una respuesta en las fuentes, indica educadamente que no dispones de datos sobre ello.
 
-📄 Cuando la respuesta esté en el contexto, incluye la frase exacta entre comillas.
+Responde de forma clara, ordenada y con un tono profesional pero cercano. Si es útil, estructura tu respuesta con viñetas o apartados.
 
-❓ Pregunta:
+Pregunta:
 {question}
 
-📄 Contexto:
+Contexto:
 {context}
 
 💬 Respuesta:
 """)
 
 
-def memory_factory() -> BaseChatMessageHistory:
-    return ChatMessageHistory()
-
-chat_with_history = RunnableWithMessageHistory(
-    prompt | model | StrOutputParser(),
-    lambda session_id: memory_factory(),
-    input_messages_key="question",
-    history_messages_key="history",
+chat_chain = RunnableSequence(
+    prompt | model | StrOutputParser()
 )
 
 compressor = CohereRerank(
@@ -62,9 +52,9 @@ reranked_retriever = ContextualCompressionRetriever(
 @app.post("/chat")
 def chat_endpoint(query: Query):
     context = "\n\n".join([doc.page_content for doc in reranked_retriever.invoke(query.question)])
-    response = chat_with_history.invoke(
-        {"context": context, "question": query.question},
-        config={"configurable": {"session_id": query.session_id}},
-    )
+    response = chat_chain.invoke({
+        "context": context,
+        "question": query.question
+    })
     return {"response": response}
 

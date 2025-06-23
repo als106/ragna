@@ -5,7 +5,7 @@ import shutil
 import logging
 import atexit
 import subprocess
-from main import chat_with_history, reranked_retriever, retriever, SESSION_ID
+from main import chat_chain, reranked_retriever
 from vector import update_vector_store
 
 CHROMA_PATH = "./chrome_langchain_db"
@@ -35,10 +35,10 @@ def chat_rag(message, history):
     context_text = "\n\n".join([doc.page_content for doc in context_docs])
 
     # Invocar al modelo
-    response = chat_with_history.invoke(
-        {"context": context_text, "question": question},
-        config={"configurable": {"session_id": SESSION_ID}},
-    )
+    response = chat_chain.invoke({
+        "context": context_text,
+        "question": question
+    })
     return {"role": "assistant", "content": response}
 
 
