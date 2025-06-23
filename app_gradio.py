@@ -5,7 +5,7 @@ import shutil
 import logging
 import atexit
 import subprocess
-from main import chat_chain, reranked_retriever
+from main import chat_chain, reranked_retriever, MODEL_NAME
 from vector import update_vector_store
 
 CHROMA_PATH = "./chrome_langchain_db"
@@ -43,7 +43,7 @@ def chat_rag(message, history):
 
 
 def stop_model():
-    subprocess.run(["ollama", "stop", "llama3.2:1b"])
+    subprocess.run(["ollama", "stop", MODEL_NAME])
 
 
 if __name__ == "__main__":
