@@ -23,8 +23,8 @@ vector_store = Chroma(
 
 retriever = VectorStoreRetriever(
     vectorstore=vector_store,
-    search_type="mmr",  # o "similarity_score_threshold"
-    search_kwargs={"k": 20}
+    search_type="mmr",
+    search_kwargs={"k": 10}
 )
 
 

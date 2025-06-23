@@ -27,19 +27,34 @@ def clear_database():
 
 def chat_rag(message, history):
     question = message["content"] if isinstance(message, dict) else message
-    
-    # 🔍 Reranked context
+
     context_docs = reranked_retriever.invoke(question)
 
-    # Generar el contexto concatenado
+    # ✅ Concatena el texto
     context_text = "\n\n".join([doc.page_content for doc in context_docs])
 
-    # Invocar al modelo
-    response = chat_chain.invoke({
-        "context": context_text,
-        "question": question
-    })
-    return {"role": "assistant", "content": response}
+    # 📁 Extrae fuentes únicas (archivo + tema si existe)
+    sources = set()
+    for doc in context_docs:
+        src = doc.metadata.get("source", "desconocido")
+        tema = doc.metadata.get("tema")
+        if tema:
+            src = f"{tema}/{src}"
+        sources.add(src)
+
+    # 📎 Formatea las fuentes
+    source_text = (
+        "\n\n**Fuentes utilizadas:**\n" + "\n".join(f"- {s}" for s in sorted(sources))
+        if sources
+        else ""
+    )
+
+    # 🤖 Invoca al modelo
+    response = chat_chain.invoke({"context": context_text, "question": question})
+
+    # 💬 Añade fuentes al final
+    final_response = f"{response.strip()}\n\n{source_text}"
+    return {"role": "assistant", "content": final_response}
 
 
 def stop_model():

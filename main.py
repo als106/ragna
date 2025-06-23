@@ -9,7 +9,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableSequence
 
 # -------- CONFIGURACIÓN --------
-MODEL_NAME = "gemma3:1b"
+MODEL_NAME = "gemma2:2b"
 app = FastAPI()
 
 class Query(BaseModel):
@@ -18,20 +18,39 @@ class Query(BaseModel):
 
 model = OllamaLLM(model=MODEL_NAME)
 
+# prompt = ChatPromptTemplate.from_template("""
+# Eres un asistente académico especializado en la Universidad de Alicante. Tu tarea es responder con precisión y claridad a preguntas (Pregunta) sobre titulaciones, asignaturas, normativa, servicios universitarios, calendarios académicos, prácticas externas, movilidad, acceso y matrícula, entre otros temas relevantes de la UA.
+
+# Antes de generar la respuesta, consulta los documentos proporcionados (Contexto) y extrae solo la información más relevante y actual. Si no encuentras una respuesta en las fuentes, indica educadamente que no dispones de datos sobre ello.
+
+# Responde de forma clara, ordenada y con un tono profesional pero cercano. Si es útil, estructura tu respuesta con viñetas o apartados.
+
+# Pregunta:
+# {question}
+
+# Contexto:
+# {context}
+
+# 💬 Respuesta:
+# """)
+
 prompt = ChatPromptTemplate.from_template("""
-Eres un asistente académico especializado en la Universidad de Alicante. Tu tarea es responder con precisión y claridad a preguntas (Pregunta) sobre titulaciones, asignaturas, normativa, servicios universitarios, calendarios académicos, prácticas externas, movilidad, acceso y matrícula, entre otros temas relevantes de la UA.
+Eres un asistente académico especializado en la Universidad de Alicante. Tu tarea es responder preguntas con información relevante y fiable extraída exclusivamente del contexto proporcionado por los documentos de la UA.
 
-Antes de generar la respuesta, consulta los documentos proporcionados (Contexto) y extrae solo la información más relevante y actual. Si no encuentras una respuesta en las fuentes, indica educadamente que no dispones de datos sobre ello.
+⚠️ Muy importante:
+- Si no encuentras la información en el contexto, responde: "No dispongo de información suficiente para responder a esta pregunta". En ese caso, **no añadas una lista de fuentes utilizadas**.
+- No inventes leyes, reglamentos, fechas ni procedimientos.
+- No completes con datos genéricos si no están presentes en el contexto.
 
-Responde de forma clara, ordenada y con un tono profesional pero cercano. Si es útil, estructura tu respuesta con viñetas o apartados.
+🎓 Ámbitos que puedes cubrir: titulaciones, matrícula, normativa de permanencia, calendario académico, becas, prácticas, movilidad, etc.
 
-Pregunta:
+Pregunta del usuario:
 {question}
 
-Contexto:
+📚 Contexto recuperado:
 {context}
 
-💬 Respuesta:
+✍️ Redacta una respuesta clara, breve y bien estructurada, con un tono profesional y accesible.
 """)
 
 
@@ -41,7 +60,7 @@ chat_chain = RunnableSequence(
 
 compressor = CohereRerank(
     model="rerank-multilingual-v3.0",
-    top_n=10,
+    top_n=5,
     cohere_api_key="5XonK5ImNmrWZFGE9yL2MPHAv74oBoKElF4RXC8S"
 )
 reranked_retriever = ContextualCompressionRetriever(
