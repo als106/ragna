@@ -9,7 +9,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableSequence
 
 # -------- CONFIGURACIÓN --------
-MODEL_NAME = "gemma2:2b"
+MODEL_NAME = "llama3.2:1b"
 app = FastAPI()
 
 class Query(BaseModel):
@@ -17,22 +17,6 @@ class Query(BaseModel):
     session_id: str = "default"
 
 model = OllamaLLM(model=MODEL_NAME)
-
-# prompt = ChatPromptTemplate.from_template("""
-# Eres un asistente académico especializado en la Universidad de Alicante. Tu tarea es responder con precisión y claridad a preguntas (Pregunta) sobre titulaciones, asignaturas, normativa, servicios universitarios, calendarios académicos, prácticas externas, movilidad, acceso y matrícula, entre otros temas relevantes de la UA.
-
-# Antes de generar la respuesta, consulta los documentos proporcionados (Contexto) y extrae solo la información más relevante y actual. Si no encuentras una respuesta en las fuentes, indica educadamente que no dispones de datos sobre ello.
-
-# Responde de forma clara, ordenada y con un tono profesional pero cercano. Si es útil, estructura tu respuesta con viñetas o apartados.
-
-# Pregunta:
-# {question}
-
-# Contexto:
-# {context}
-
-# 💬 Respuesta:
-# """)
 
 prompt = ChatPromptTemplate.from_template("""
 Eres un asistente académico especializado en la Universidad de Alicante. Tu tarea es responder preguntas con información relevante y fiable extraída exclusivamente del contexto proporcionado por los documentos de la UA.
