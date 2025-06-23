@@ -9,7 +9,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableSequence
 
 # -------- CONFIGURACIÓN --------
-MODEL_NAME = "deepseek-r1:1.5b"
+MODEL_NAME = "gemma3:1b"
 app = FastAPI()
 
 class Query(BaseModel):
