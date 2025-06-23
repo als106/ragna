@@ -1,0 +1,20 @@
+# Core LangChain
+langchain==0.3.26
+langchain-community==0.3.26
+langchain-chroma==0.2.4
+langchain-ollama==0.3.3
+
+# Chroma vector store
+chromadb==1.0.13
+
+# Documentos y datos
+pymupdf==1.26.1
+pandas==2.3.0
+
+# GUI
+gradio==5.34.2
+
+# (opcional si usas backend API)
+fastapi==0.115.13
+uvicorn==0.34.3
+
