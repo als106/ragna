@@ -5,17 +5,21 @@ Este proyecto implementa un sistema de generación aumentada por recuperación (
 ## 🧱 Tecnologías principales
 
 - Python 3.12
-- FastAPI (webhook para Dialogflow)
-- LangChain + Chroma
-- flan-t5-large (modelo de Hugging Face)
-- Transformers, Accelerate
-- Hugging Face Embeddings (`intfloat/multilingual-e5-base`)
+- FastAPI (API REST para integración con Dialogflow)
+- LangChain + Chroma (gestión RAG y almacenamiento vectorial)
+- Gradio (interfaz local alternativa)
+- Modelo de generación: `gemma2:2b` mediante Ollama
+- Embeddings: `intfloat/multilingual-e5-small`
+- Transformers y Accelerate (para gestión eficiente en GPU)
+- Evaluación con BERTScore, ROUGE y Exact Match
 
 ## 📦 Estructura del proyecto
 
 - `app_gradio_mod.py` — Interfaz de chat con Gradio.
 - `main_mod.py` — Backend de generación de respuestas con FastAPI.
 - `vector_mod.py` — Procesamiento de PDFs y CSVs para actualizar la base vectorial.
+- `evaluacion.py` — Generación automática de respuestas para evaluación.
+- `metricas.py` — Cálculo de métricas (ROUGE, BERTScore, EM).
 - `data/` — Carpeta donde se guardan los documentos fuente.
 - `.env` — Archivo con variables de entorno (token de Cohere).
 - `chrome_langchain_db/` — Base de datos semántica de ChromaDB (generada automáticamente).

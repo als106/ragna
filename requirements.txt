@@ -20,6 +20,11 @@ gradio==5.34.2
 fastapi==0.115.13
 uvicorn==0.34.3
 
+# Evaluación
+evaluate==0.4.4
+bert-score==0.3.13
+rouge-score==0.1.2
+
 # Otros
 sentence-transformers==4.1.0
 

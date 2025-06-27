@@ -20,7 +20,8 @@ chrome_langchain_db/
 
 # Datos y documentos
 data/*
-processed_docs.json
+*.json
+*.csv
 
 # Archivos generados
 *.pdf
